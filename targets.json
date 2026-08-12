@@ -1,0 +1,26 @@
+{
+  "targets": [
+    {
+      "name": "DESKTOP-H5TAEE6",
+      "ip": "10.10.88.252",
+      "port": 9091,
+      "label": "Laptop Belva"
+    },
+    {
+      "name": "HYPE",
+      "ip": "10.10.88.123",
+      "port": 9091
+    },
+    {
+      "name": "NIZARADE",
+      "ip": "10.10.88.208",
+      "port": 9091
+    },
+    {
+      "name": "DESKTOP-22AN8KV",
+      "ip": "10.10.88.144",
+      "port": 9091,
+      "label": "zaky"
+    }
+  ]
+}

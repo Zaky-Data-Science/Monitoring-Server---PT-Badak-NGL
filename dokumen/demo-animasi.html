@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contoh Animasi — Dashboard PT Badak NGL</title>
+<style>
+  :root{
+    --brand:#9e1327; --brand2:#d13a2b; --brand3:#e06a2a;
+    --bg:#0a0e18; --panel:#141b2b; --neu-bg:#0f1524;
+    --ink:#e9eef7; --muted:#8593ab; --line:rgba(255,255,255,.10);
+    --green:#3ddc97; --amber:#f0b45a; --red:#f0715f; --blue:#5b8cff;
+    --glass:rgba(255,255,255,.055); --glass2:rgba(255,255,255,.09);
+    --blur:saturate(150%) blur(16px);
+    --neu-raise:6px 6px 16px rgba(0,0,0,.55), -6px -6px 14px rgba(255,255,255,.035);
+    --neu-press:inset 5px 5px 12px rgba(0,0,0,.6), inset -4px -4px 10px rgba(255,255,255,.03);
+    --track:#0f1524;
+  }
+  :root.light{
+    --bg:#e7ebf2; --panel:#ffffff; --neu-bg:#e7ebf2;
+    --ink:#141b28; --muted:#697991; --line:rgba(20,30,55,.10);
+    --green:#17a06a; --amber:#e0952a; --red:#d64545; --blue:#2f6fed;
+    --glass:rgba(255,255,255,.6); --glass2:rgba(255,255,255,.82);
+    --neu-raise:6px 6px 14px rgba(20,30,55,.13), -6px -6px 13px rgba(255,255,255,.96);
+    --neu-press:inset 5px 5px 11px rgba(20,30,55,.15), inset -5px -5px 11px rgba(255,255,255,.92);
+    --track:#e7ebf2;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;min-height:100vh;transition:.4s}
+  body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+    background:radial-gradient(46% 46% at 18% 26%,rgba(209,58,43,.16),transparent 62%),
+      radial-gradient(44% 44% at 82% 18%,rgba(47,111,237,.15),transparent 62%),
+      radial-gradient(50% 50% at 62% 92%,rgba(224,106,42,.13),transparent 62%);
+    filter:blur(26px);animation:float 30s ease-in-out infinite alternate}
+  .hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(120deg,var(--brand),var(--brand2) 62%,var(--brand3));
+    padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 10px 30px -10px rgba(120,20,30,.55)}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;
+    background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.5) 48%,transparent 66%);background-size:250% 100%;animation:shimmer 8s linear infinite}
+  .hero h1{font-size:18px;margin:0;position:relative;z-index:1} .hero p{margin:2px 0 0;font-size:12px;opacity:.9;position:relative;z-index:1}
+  .htools{display:flex;gap:10px;position:relative;z-index:1}
+  .hbtn{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;border-radius:12px;padding:8px 14px;font-size:13px;font-weight:700;transition:.2s}
+  .hbtn:hover{background:rgba(255,255,255,.3);transform:translateY(-1px)}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+  .card{position:relative;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+    border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 16px 34px -18px rgba(0,0,0,.5);cursor:pointer;transition:transform .2s}
+  .card:hover{transform:translateY(-4px)}
+  .num{position:absolute;top:12px;right:14px;font-size:12px;font-weight:800;color:var(--muted)}
+  .stage{height:120px;display:flex;align-items:center;justify-content:center;margin:4px 0 12px}
+  .ttl{font-size:14px;font-weight:800;margin:0}
+  .cap{font-size:12px;color:var(--muted);margin:4px 0 0;line-height:1.45}
+  .cap b{color:var(--ink);font-weight:700}
+  .hint{font-size:11px;color:var(--muted);margin-top:8px;opacity:.8}
+  /* elemen demo */
+  .bignum{font-size:44px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+  .bar{width:82%;height:12px;border-radius:8px;background:var(--track);box-shadow:var(--neu-press);overflow:hidden;position:relative}
+  .bar>i{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--brand3),var(--amber));
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.45),inset 0 -2px 3px rgba(0,0,0,.2)}
+  .bar>i::after{content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);animation:sweep 1.4s linear infinite}
+  .ring{transform:rotate(-90deg)} .ring circle{fill:none;stroke-width:12;stroke-linecap:round}
+  .ring .bgc{stroke:var(--track)} .ring .fg{stroke:url(#g1);stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.3,1,.4,1)}
+  .live{display:flex;align-items:center;gap:12px;font-weight:800;font-size:15px}
+  .dot{width:16px;height:16px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+  .stk{width:100%} .stk .row{height:12px;border-radius:6px;margin:8px 0;background:linear-gradient(90deg,var(--glass2),var(--glass),var(--glass2));background-size:200% 100%;animation:shine 1.3s linear infinite}
+  .stk .row:nth-child(2){width:70%}.stk .row:nth-child(3){width:85%}
+  .stagg .item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:10px;background:var(--neu-bg);box-shadow:var(--neu-raise);margin:6px 0;opacity:0;font-size:12px;font-weight:700}
+  .stagg .item i{width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block}
+  .stagg.go .item{animation:rise .5s ease forwards}
+  .stagg.go .item:nth-child(1){animation-delay:.05s}.stagg.go .item:nth-child(2){animation-delay:.18s}.stagg.go .item:nth-child(3){animation-delay:.31s}
+  .spark{width:100%;height:70px} .spark path{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  .spark .ln{stroke-dasharray:1;stroke-dashoffset:1}
+  .spark.go .ln{animation:draw 1.3s ease forwards}
+  .glow{position:relative;border-radius:16px;padding:2px;isolation:isolate}
+  .glow::before{content:"";position:absolute;inset:0;border-radius:16px;padding:2px;z-index:-1;
+    background:conic-gradient(from 0deg,transparent,var(--amber),var(--brand3),transparent 40%);animation:spin 3.2s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+  .glow .inner{background:var(--neu-bg);border-radius:14px;padding:14px 16px;font-size:13px;font-weight:800;display:flex;align-items:center;gap:9px}
+  .chipflag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;background:rgba(240,180,90,.15);color:var(--amber);border:1px solid rgba(240,180,90,.4)}
+  .foot{margin:22px auto 40px;max-width:1120px;padding:14px 18px;border-radius:14px;background:var(--glass);border:1px solid var(--line);
+    backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);font-size:13px;color:var(--muted)}
+  .foot b{color:var(--ink)}
+  @keyframes float{0%{transform:translate3d(0,0,0) rotate(0)}100%{transform:translate3d(3%,4%,0) rotate(8deg)}}
+  @keyframes shimmer{0%{background-position:150% 0}100%{background-position:-150% 0}}
+  @keyframes sweep{0%{left:-40%}100%{left:120%}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,151,.55)}70%{box-shadow:0 0 0 12px rgba(61,220,151,0)}100%{box-shadow:0 0 0 0 rgba(61,220,151,0)}}
+  @keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div><h1>Contoh Animasi — pilih yang cocok</h1><p>PT Badak NGL · gaya sama dgn dashboard (glass · neu · dark). Klik kartu untuk memutar ulang.</p></div>
+  <div class="htools"><button class="hbtn" onclick="playAll()">▶ Putar ulang semua</button><button class="hbtn" onclick="toggleTheme()" id="tbtn">☀️ Terang</button></div>
+</div>
+
+<div class="wrap">
+  <div class="grid" id="grid">
+
+    <div class="card" data-anim="count">
+      <div class="num">01</div>
+      <div class="stage"><div class="bignum" id="cu">0%</div></div>
+      <p class="ttl">Angka menghitung naik</p>
+      <p class="cap">Nilai memanjat mulus dari 0. <b>Cocok untuk:</b> % CPU/RAM/Disk & latensi di kartu metrik.</p>
+      <p class="hint">klik untuk ulang</p>
+    </div>
+
+    <div class="card" data-anim="bar">
+      <div class="num">02</div>
+      <div class="stage"><div class="bar"><i id="barfill"></i></div></div>
+      <p class="ttl">Progress bar isi + kilau</p>
+      <p class="cap">Bar terisi dgn kilau berjalan. <b>Cocok untuk:</b> bar CPU/RAM/Disk di panel detail.</p>
+      <p class="hint">klik untuk ulang</p>
+    </div>
+
+    <div class="card" data-anim="ring">
+      <div class="num">03</div>
+      <div class="stage">
+        <svg class="ring" width="104" height="104" viewBox="0 0 104 104">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e06a2a"/><stop offset="1" stop-color="#d13a2b"/></linearGradient></defs>
+          <circle class="bgc" cx="52" cy="52" r="44"/><circle class="fg" id="ringfg" cx="52" cy="52" r="44" pathLength="1"/>
+        </svg>
+      </div>
+      <p class="ttl">Gauge lingkaran</p>
+      <p class="cap">Cincin menyapu ke nilai. <b>Cocok untuk:</b> tampilan ringkas CPU/RAM sbergaya meteran.</p>
+      <p class="hint">klik untuk ulang</p>
+    </div>
+
+    <div class="card" data-anim="live">
+      <div class="num">04</div>
+      <div class="stage"><div class="live"><span class="dot"></span> LIVE · ONLINE</div></div>
+      <p class="ttl">Denyut status hidup</p>
+      <p class="cap">Titik berdenyut menyebar. <b>Cocok untuk:</b> indikator LIVE & lampu ONLINE server.</p>
+      <p class="hint">berjalan terus</p>
+    </div>
+
+    <div class="card" data-anim="stagg">
+      <div class="num">05</div>
+      <div class="stage" style="align-items:stretch"><div class="stagg" id="stagg" style="width:100%;align-self:center">
+        <div class="item"><i></i> Laptop Zakky · ONLINE</div><div class="item"><i></i> Laptop Kholis · ONLINE</div><div class="item"><i style="background:var(--red)"></i> Laptop Belva · MATI</div>
+      </div></div>
+      <p class="ttl">Kartu masuk bertahap</p>
+      <p class="cap">Item muncul beruntun. <b>Cocok untuk:</b> daftar server saat pertama dimuat.</p>
+      <p class="hint">klik untuk ulang</p>
+    </div>
+
+    <div class="card" data-anim="skel">
+      <div class="num">06</div>
+      <div class="stage" style="align-items:stretch"><div class="stk" style="align-self:center"><div class="row"></div><div class="row"></div><div class="row"></div></div></div>
+      <p class="ttl">Skeleton shimmer (memuat)</p>
+      <p class="cap">Placeholder berkilau saat menunggu data. <b>Cocok untuk:</b> keadaan "memuat…" sebelum metrik datang.</p>
+      <p class="hint">berjalan terus</p>
+    </div>
+
+    <div class="card" data-anim="spark">
+      <div class="num">07</div>
+      <div class="stage"><svg class="spark" id="spark" viewBox="0 0 220 70" preserveAspectRatio="none">
+        <path class="ln" pathLength="1" d="M2,55 L34,40 L66,48 L98,22 L130,34 L162,14 L194,26 L218,10"/>
+      </svg></div>
+      <p class="ttl">Sparkline tergambar</p>
+      <p class="cap">Garis grafik menggambar sendiri. <b>Cocok untuk:</b> mini-tren CPU/jaringan 10 menit.</p>
+      <p class="hint">klik untuk ulang</p>
+    </div>
+
+    <div class="card" data-anim="glow">
+      <div class="num">08</div>
+      <div class="stage"><div class="glow"><div class="inner"><span class="chipflag">🛡️ 2</span> aplikasi dipantau</div></div></div>
+      <p class="ttl">Border glow waspada</p>
+      <p class="cap">Bingkai cahaya berputar. <b>Cocok untuk:</b> kartu server yg ada aplikasi ter-flag / terpilih.</p>
+      <p class="hint">berjalan terus</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="foot">💡 <b>Cara pakai:</b> klik kartu mana pun untuk memutar ulang animasinya. Kalau sudah menemukan yang disuka, sebutkan <b>nomornya</b> (mis. "pasang no. 1, 2, 7") — nanti saya pasang ke dashboard aslinya. Bisa juga minta variasi kecepatan/warna.</div>
+
+<script>
+  function countUp(el,to,suf,dur){ dur=dur||1100; var t0=performance.now();
+    (function f(t){ var p=Math.min(1,(t-t0)/dur); p=1-Math.pow(1-p,3); el.textContent=Math.round(to*p)+suf; if(p<1)requestAnimationFrame(f); })(t0); }
+  function playCount(){ countUp(document.getElementById('cu'),87,'%'); }
+  function playBar(){ var b=document.getElementById('barfill'); b.style.transition='none'; b.style.width='0';
+    requestAnimationFrame(function(){ b.style.transition='width 1.2s cubic-bezier(.3,1,.4,1)'; b.style.width='72%'; }); }
+  function playRing(){ var r=document.getElementById('ringfg'); r.style.strokeDashoffset='1';
+    requestAnimationFrame(function(){ r.style.strokeDashoffset=String(1-0.64); }); }
+  function replayCls(id,cls){ var e=document.getElementById(id); e.classList.remove(cls); void e.offsetWidth; e.classList.add(cls); }
+  function playStagg(){ replayCls('stagg','go'); }
+  function playSpark(){ replayCls('spark','go'); }
+  function playOne(a){ if(a==='count')playCount(); else if(a==='bar')playBar(); else if(a==='ring')playRing(); else if(a==='stagg')playStagg(); else if(a==='spark')playSpark(); }
+  function playAll(){ ['count','bar','ring','stagg','spark'].forEach(playOne); }
+  document.querySelectorAll('.card').forEach(function(c){ c.addEventListener('click',function(){ playOne(c.getAttribute('data-anim')); }); });
+  function toggleTheme(){ var l=document.documentElement.classList.toggle('light'); document.getElementById('tbtn').textContent=l?'🌙 Gelap':'☀️ Terang'; }
+  setTimeout(playAll,300);
+</script>
+</body>
+</html>

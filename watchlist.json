@@ -1,0 +1,59 @@
+{
+  "_catatan": "Daftar kata kunci APLIKASI yang DIPANTAU/DITANDAI di dashboard. Cocokkan sebagian nama (huruf besar/kecil diabaikan). SESUAIKAN dengan kebijakan IT PT Badak - ini contoh awal, bukan vonis 'berbahaya' mutlak.",
+  "_deskripsi": {
+    "remote-access-tak-resmi": "Aplikasi kendali jarak jauh - bisa dipakai mengakses/mengontrol komputer dari luar tanpa izin IT.",
+    "torrent-p2p": "Berbagi file peer-to-peer - sering untuk unduhan ilegal, rawan malware, dan boros bandwidth.",
+    "vpn-anonymizer": "Menyembunyikan/mengalihkan lalu lintas jaringan - bisa menembus kebijakan & pemantauan jaringan perusahaan.",
+    "hacking-security-tools": "Alat uji keamanan/peretasan - berbahaya bila dipakai tanpa otorisasi resmi.",
+    "pembajakan-lisensi": "Alat aktivasi/lisensi ilegal - melanggar hukum dan sering menyisipkan malware.",
+    "unduh-media-ilegal": "Pengunduh media/video massal - kerap dipakai untuk konten bajakan.",
+    "penyimpanan-awan-tak-resmi": "Penyimpanan awan pribadi - berisiko kebocoran / pencurian data perusahaan.",
+    "crypto-miner": "Penambang kripto - menyedot CPU/GPU & listrik, sering terpasang diam-diam.",
+    "keylogger-spyware": "Perekam ketikan / mata-mata - ancaman serius pencurian kredensial & data.",
+    "browser-non-standar": "Browser di luar standar perusahaan - kebijakan keamanan/pemantauan mungkin tak berlaku.",
+    "game-hiburan": "Aplikasi game/hiburan - menurunkan produktivitas & bukan keperluan kerja."
+  },
+  "remote-access-tak-resmi": [
+    "anydesk", "teamviewer", "ultraviewer", "ammyy", "radmin", "rustdesk", "aeroadmin",
+    "supremo", "getscreen", "remoteutilities", "dwservice", "chrome remote", "vnc", "tightvnc",
+    "realvnc", "ngrok", "logmein", "gotomypc", "splashtop"
+  ],
+  "torrent-p2p": [
+    "utorrent", "bittorrent", "qbittorrent", "vuze", "deluge", "transmission", "frostwire",
+    "limewire", "emule", "tixati", "bitcomet"
+  ],
+  "vpn-anonymizer": [
+    "hotspot shield", "psiphon", "hola", "betternet", "windscribe", "protonvpn", "nordvpn",
+    "expressvpn", "cyberghost", "tunnelbear", "ultrasurf", "freegate", "zenmate", "browsec",
+    "tor", "urban vpn", "turbo vpn", "1clickvpn"
+  ],
+  "hacking-security-tools": [
+    "wireshark", "nmap", "zenmap", "cain", "netcat", "mimikatz", "cheat engine", "metasploit",
+    "burp suite", "aircrack", "hashcat", "john the ripper", "hydra", "ophcrack", "sqlmap",
+    "angry ip", "advanced ip scanner", "process hacker", "cheatengine", "wifi password"
+  ],
+  "pembajakan-lisensi": [
+    "kmspico", "keygen", "crack", "activator", "kms auto", "kmsauto", "re-loader", "reloader",
+    "windows loader", "idm crack", "patch", "nulled", "warez"
+  ],
+  "unduh-media-ilegal": [
+    "internet download manager", "idm", "youtube downloader", "y2mate", "4k video downloader",
+    "jdownloader", "free download manager", "vidmate", "snaptube", "tubemate"
+  ],
+  "penyimpanan-awan-tak-resmi": [
+    "mega", "megasync", "dropbox", "google drive", "onedrive personal", "pcloud", "sync.com",
+    "wetransfer", "box drive"
+  ],
+  "crypto-miner": [
+    "nicehash", "xmrig", "cgminer", "bfgminer", "cudo miner", "phoenixminer", "minergate", "ethminer"
+  ],
+  "keylogger-spyware": [
+    "keylogger", "spyrix", "refog", "actual keylogger", "ardamax", "hoverwatch", "flexispy"
+  ],
+  "browser-non-standar": [
+    "tor browser", "yandex", "uc browser", "maxthon", "epic privacy", "brave", "opera gx", "kiwi"
+  ],
+  "game-hiburan": [
+    "steam", "epic games", "roblox", "genshin", "valorant", "discord", "battle.net", "riot"
+  ]
+}

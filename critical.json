@@ -1,0 +1,24 @@
+{
+  "_catatan": "Daftar SERVICE & PORT KRITIS yang dipantau tiap server. 'default' berlaku untuk semua server; 'per_server' menimpa berdasarkan NAMA HOST (samakan dgn nama di dashboard). 'name' service = nama pendek Windows (mis. MSSQLSERVER) ATAU sebagian nama tampilan. Ubah sesuai kebijakan IT PT Badak. SEMUA hanya DIBACA (non-interference).",
+  "default": {
+    "services": [
+      { "name": "Dnscache", "label": "DNS Client" },
+      { "name": "LanmanServer", "label": "File Sharing (Server)" }
+    ],
+    "ports": [
+      { "port": 9091, "label": "Agen Monitoring (9091)" }
+    ]
+  },
+  "per_server": {
+    "PIMSSRV01": {
+      "services": [
+        { "name": "MSSQLSERVER", "label": "SQL Server" },
+        { "name": "Exaquantum", "label": "Yokogawa Exaquantum" }
+      ],
+      "ports": [
+        { "port": 1433, "label": "SQL Server (1433)" },
+        { "port": 443, "label": "Web/HTTPS (443)" }
+      ]
+    }
+  }
+}

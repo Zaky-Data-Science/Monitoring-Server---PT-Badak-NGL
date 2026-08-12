@@ -1,0 +1,42 @@
+{
+  "_catatan": "Kata kunci DOMAIN/situs yang DITANDAI bila muncul di riwayat browser. Dicocokkan SEBAGIAN (huruf besar/kecil diabaikan) pada nama domain yang pernah dibuka. Sesuaikan dengan kebijakan IT PT Badak. Tujuan: keamanan (situs berisiko), bukan sensor pribadi.",
+  "_deskripsi": {
+    "judi-online": "Situs perjudian - ilegal, berisiko penipuan finansial & malware.",
+    "pornografi": "Konten dewasa - melanggar kebijakan kerja, rawan malware & pemerasan.",
+    "pembajakan-streaming-ilegal": "Streaming/unduh bajakan - ilegal dan penuh iklan/redirect berbahaya.",
+    "phishing-malware": "Situs penipuan / penyebar malware - ancaman pencurian data & akun.",
+    "hacking-tools": "Forum/alat peretasan - berisiko hukum dan keamanan perusahaan.",
+    "proxy-anonymizer": "Proxy penembus blokir - melewati kebijakan & pemantauan jaringan perusahaan.",
+    "crypto-scam": "Penipuan kripto / hadiah palsu - berisiko kerugian finansial & malware."
+  },
+  "judi-online": [
+    "casino", "judi", "slot", "poker", "togel", "sbobet", "bet365", "betting", "bandarq",
+    "dominoqq", "gacor", "maxwin", "88bet", "roulette", "taruhan"
+  ],
+  "pornografi": [
+    "porn", "xxx", "xvideos", "xnxx", "xhamster", "pornhub", "redtube", "youporn", "bokep",
+    "onlyfans", "brazzers", "hentai", "camgirl", "sex"
+  ],
+  "pembajakan-streaming-ilegal": [
+    "thepiratebay", "1337x", "rarbg", "torrentz", "nyaa", "kickass", "yts", "limetorrents",
+    "fmovies", "123movies", "putlocker", "lk21", "indoxxi", "rebahin", "sflix", "gomovies",
+    "streamtape", "olevod"
+  ],
+  "phishing-malware": [
+    "free-gift", "freegiftcard", "verify-account", "account-verify", "login-secure",
+    "malware", "keygen", "crackz", "warez", "nulled", "serialz", ".ru/win", "get-money",
+    "prize-claim", "bit.ly", "tinyurl", "grabify", "iplogger"
+  ],
+  "hacking-tools": [
+    "exploit-db", "hackforums", "cracking", "leakforums", "nulledbb", "raidforums", "breachforums",
+    "0day", "shodan", "haveibeenpwned"
+  ],
+  "proxy-anonymizer": [
+    "proxysite", "hidemy", "kproxy", "hide.me", "croxyproxy", "vpnbook", "webproxy", "torproject",
+    "psiphon", "ultrasurf", "unblock"
+  ],
+  "crypto-scam": [
+    "free-bitcoin", "bitcoin-doubler", "crypto-giveaway", "airdrop-free", "eth-giveaway",
+    "cloud-mining", "coinhive", "miner"
+  ]
+}

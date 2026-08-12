@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modul Penjelasan — Sistem Monitoring Server PT Badak NGL</title>
+<style>
+  :root{ --brand:#9e1327; --brand2:#d13a2b; --navy:#1f3864; --ink:#1b2432; --muted:#5a6a80; --line:#e4e9f1; --bg:#f4f6fb;
+    --green:#127a51; --greenbg:#e5f6ee; --amber:#8a5a12; --amberbg:#fdf1de; --blue:#2f6fed; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:15px}
+  .wrap{max-width:900px;margin:0 auto;background:#fff;box-shadow:0 4px 24px rgba(20,30,55,.08)}
+  /* Sampul */
+  .cover{background:linear-gradient(135deg,var(--brand),var(--brand2) 70%,#e06a2a);color:#fff;padding:60px 50px;position:relative;overflow:hidden}
+  .cover::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.10)}
+  .cover .kls{font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.9}
+  .cover h1{font-size:34px;margin:12px 0 6px;line-height:1.15}
+  .cover .sub{font-size:16px;opacity:.95}
+  .cover .box{margin-top:34px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:16px 20px;font-size:14px;position:relative;z-index:1;max-width:420px}
+  .cover .box b{display:inline-block;width:120px;opacity:.85;font-weight:600}
+  .content{padding:36px 50px 60px}
+  h2{color:var(--brand);font-size:22px;border-bottom:3px solid var(--brand);padding-bottom:7px;margin:38px 0 14px}
+  h3{color:var(--navy);font-size:17px;margin:22px 0 8px}
+  p{margin:9px 0}
+  .lead{font-size:16px;color:var(--muted)}
+  ul,ol{margin:9px 0;padding-left:22px} li{margin:5px 0}
+  code{background:#f0f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;font-family:Consolas,monospace;color:#b0355f}
+  .toc{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 24px;margin:22px 0}
+  .toc h3{margin-top:0;color:var(--brand)}
+  .toc ol{columns:2;column-gap:30px}
+  .toc a{color:var(--ink);text-decoration:none} .toc a:hover{color:var(--brand);text-decoration:underline}
+  .note{border-left:4px solid var(--blue);background:#eef4ff;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:14px}
+  .note.ok{border-color:var(--green);background:var(--greenbg)}
+  .note.warn{border-color:var(--amber);background:var(--amberbg)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{background:var(--navy);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:#f8fafd}
+  /* Diagram arsitektur */
+  .arch{display:flex;flex-direction:column;align-items:center;gap:0;margin:20px 0}
+  .layer{width:100%;border:2px solid var(--line);border-radius:14px;padding:16px 20px;background:#fff}
+  .layer .lt{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+  .layer .ld{font-size:13.5px;color:var(--muted);margin-top:4px}
+  .layer.l1{border-color:#bcd0f0;background:#f2f7ff} .layer.l2{border-color:#f2caae;background:#fff7f0} .layer.l3{border-color:#bfe3d0;background:#f1fbf6}
+  .arrow{font-size:22px;color:var(--muted);margin:4px 0}
+  .arrow small{display:block;font-size:11.5px}
+  /* Kartu fitur */
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+  .fcard{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff}
+  .fcard .fh{font-weight:700;color:var(--navy);font-size:15px;margin-bottom:4px}
+  .fcard p{font-size:13.5px;color:var(--muted);margin:0}
+  .pill{display:inline-block;background:var(--greenbg);color:var(--green);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:700}
+  .foot{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted);text-align:center}
+  .btnbar{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 50px;display:flex;justify-content:flex-end;z-index:5}
+  .btn{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:14px;cursor:pointer;font-weight:700}
+  @media print{ .btnbar{display:none} body{background:#fff} .wrap{box-shadow:none;max-width:100%} .feat,.toc ol{grid-template-columns:1fr 1fr} h2{page-break-after:avoid} .fcard,.layer,table{page-break-inside:avoid} }
+  @media(max-width:680px){ .feat{grid-template-columns:1fr} .toc ol{columns:1} .content,.cover,.btnbar{padding-left:24px;padding-right:24px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="btnbar"><button class="btn" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button></div>
+
+<!-- ============ SAMPUL ============ -->
+<div class="cover">
+  <div class="kls">Modul Penjelasan Sistem &middot; Praktik Kerja Lapangan</div>
+  <h1>Sistem Monitoring Server, Keamanan &amp; Pelaporan</h1>
+  <div class="sub">Dashboard pemantauan resource, layanan kritis, dan keamanan server &mdash; berbasis prinsip <i>Non-Interference</i></div>
+  <div class="box">
+    <div><b>Instansi</b> PT Badak NGL &mdash; IT Section</div>
+    <div><b>Pembimbing</b> Pak Erwan</div>
+    <div><b>Stack</b> Python &middot; PowerShell &middot; Oracle XE</div>
+    <div><b>Sifat</b> Read-only (tidak mengubah server yang dipantau)</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ============ DAFTAR ISI ============ -->
+<div class="toc">
+  <h3>Daftar Isi</h3>
+  <ol>
+    <li><a href="#bab1">Pendahuluan &amp; Tujuan</a></li>
+    <li><a href="#bab2">Prinsip Non-Interference</a></li>
+    <li><a href="#bab3">Gambaran Umum Sistem</a></li>
+    <li><a href="#bab4">Arsitektur (3 Lapis)</a></li>
+    <li><a href="#bab5">Cara Kerja / Alur Data</a></li>
+    <li><a href="#bab6">Komponen Teknis</a></li>
+    <li><a href="#bab7">Daftar Fitur</a></li>
+    <li><a href="#bab8">Teknologi yang Digunakan</a></li>
+    <li><a href="#bab9">Cara Menjalankan &amp; Deploy</a></li>
+    <li><a href="#bab10">Manfaat untuk Pabrik</a></li>
+    <li><a href="#bab11">Glosarium Istilah</a></li>
+  </ol>
+</div>
+
+<!-- ============ BAB 1 ============ -->
+<h2 id="bab1">1. Pendahuluan &amp; Tujuan</h2>
+<p class="lead">Sistem ini adalah <b>dashboard web lokal</b> yang memantau kondisi beberapa server/laptop dari <b>satu laptop pusat</b>, secara terus-menerus dan aman.</p>
+<p>Di lingkungan pabrik LNG, server-server penting (mis. historian, database, aplikasi proses seperti Exaquantum) harus selalu sehat. Kalau CPU/RAM/disk penuh atau sebuah layanan mati, dampaknya bisa serius. Tujuan sistem ini:</p>
+<ul>
+  <li><b>Memantau</b> CPU, RAM, Disk, dan Jaringan tiap server secara real-time.</li>
+  <li><b>Mendeteksi masalah lebih awal</b> — server mati, layanan kritis berhenti, atau aplikasi berisiko terpasang.</li>
+  <li><b>Menyimpan riwayat</b> ke database Oracle untuk analisa tren &amp; laporan keandalan (% uptime).</li>
+  <li><b>Menghasilkan laporan</b> (Excel &amp; PDF) untuk dokumentasi ke pembimbing/atasan.</li>
+</ul>
+<p>Semua ini dilakukan <b>tanpa memasang aplikasi apa pun</b> di server yang dipantau, dan <b>tanpa mengubah</b> apa pun di dalamnya.</p>
+
+<!-- ============ BAB 2 ============ -->
+<h2 id="bab2">2. Prinsip Non-Interference</h2>
+<p><i>Non-Interference</i> artinya <b>"tidak mengganggu"</b>. Ini aturan utama sistem: pemantauan hanya boleh <b>MEMBACA</b> angka, tidak boleh menulis, mengubah, atau membebani server yang dipantau.</p>
+<div class="note ok"><b>Kenapa penting?</b> Server pabrik menjalankan proses kritis. Alat pantau tidak boleh menjadi sumber masalah baru. Karena itu sistem ini hanya membaca (read-only), memakai <i>cache</i> agar ringan, dan tidak memasang service berat di server target.</div>
+<ul>
+  <li>Agen hanya <b>membaca</b> angka resource lalu menyajikannya sebagai teks (JSON) — tidak menyentuh data/proses.</li>
+  <li>Hasil bacaan di-<b>cache 2 detik</b> di agen, jadi walau banyak yang mengakses, beban server tetap kecil.</li>
+  <li>Dashboard hanya <b>menarik/membaca</b> dari agen; tidak pernah mengirim perintah yang mengubah server.</li>
+</ul>
+
+<!-- ============ BAB 3 ============ -->
+<h2 id="bab3">3. Gambaran Umum Sistem</h2>
+<p>Bayangkan seperti <b>ruang kontrol (control room) mini untuk IT</b>: di satu layar, operator bisa melihat kondisi semua server sekaligus &mdash; mana yang sehat (hijau), mana yang perlu dicek (kuning/merah), dan menggali detail tiap server bila perlu.</p>
+<p>Sistem terdiri dari 3 bagian yang bekerja sama:</p>
+<ol>
+  <li><b>Agen</b> — program kecil (PowerShell) di tiap server target, yang "melapor" kondisi resource.</li>
+  <li><b>Dashboard (server pusat)</b> — program Python di laptop pusat yang mengumpulkan data, menyimpannya ke Oracle, dan menyajikan halaman web.</li>
+  <li><b>Browser</b> — tampilan yang dilihat pengguna (kartu server, grafik, laporan).</li>
+</ol>
+
+<!-- ============ BAB 4 ============ -->
+<h2 id="bab4">4. Arsitektur (3 Lapis)</h2>
+<div class="arch">
+  <div class="layer l1">
+    <div class="lt">🖥️ Lapis 1 — Agen di Server Target <span style="font-weight:400;color:var(--muted)">(port 9091, PowerShell, TANPA install)</span></div>
+    <div class="ld">Membaca CPU/RAM/Disk/Jaringan, daftar aplikasi terpasang, serta status service &amp; port kritis. Otomatis mendaftarkan diri ke dashboard. Menyajikan endpoint: <code>/</code> metrik, <code>/apps</code>, <code>/check</code>, <code>/top</code>.</div>
+  </div>
+  <div class="arrow">⬇ <small>lapor data (dibaca dashboard)</small></div>
+  <div class="layer l2">
+    <div class="lt">🧠 Lapis 2 — Dashboard Server <span style="font-weight:400;color:var(--muted)">(port 9090, Python)</span></div>
+    <div class="ld">Mengumpulkan data dari semua agen, menyimpan ke <b>Oracle</b> tiap 10 detik, memantau layanan kritis &amp; keamanan lewat 5 <i>worker</i> latar, membuat laporan Excel/PDF, dan menyajikan halaman web + API.</div>
+  </div>
+  <div class="arrow">⬇ <small>sajikan web + API</small></div>
+  <div class="layer l3">
+    <div class="lt">🌐 Lapis 3 — Browser (Tampilan) </div>
+    <div class="ld">Halaman dashboard bergaya modern (glassmorphism, mode gelap, animasi). Menampilkan kartu tiap server, detail metrik + grafik, riwayat &amp; % uptime, dan tombol laporan.</div>
+  </div>
+</div>
+<div class="note"><b>Analogi:</b> Agen = <i>perawat</i> yang mencatat tanda vital tiap pasien. Dashboard = <i>ruang jaga</i> yang mengumpulkan semua catatan &amp; menyimpannya. Browser = <i>monitor</i> di ruang jaga yang dilihat dokter.</div>
+
+<!-- ============ BAB 5 ============ -->
+<h2 id="bab5">5. Cara Kerja / Alur Data</h2>
+<ol>
+  <li><b>Agen dijalankan</b> di server target → otomatis mendaftar ke dashboard (kirim nama &amp; IP).</li>
+  <li>Agen <b>membaca resource</b> (CPU/RAM/Disk/Net) dan menyimpannya di cache 2 detik.</li>
+  <li>Dashboard <b>menarik data</b> dari tiap agen, sekaligus cek ONLINE/OFFLINE + latensi.</li>
+  <li>Tiap <b>10 detik</b>, dashboard <b>menyimpan metrik ke Oracle</b> (tabel <code>server_monitoring</code>).</li>
+  <li><i>Worker</i> latar berkala: memindai <b>aplikasi</b> (tiap 5 menit) &amp; <b>layanan/port kritis</b> (tiap 60 detik); mencatat ke Oracle bila ada temuan/perubahan.</li>
+  <li>Browser <b>menampilkan</b> semuanya, memuat grafik riwayat dari Oracle, dan bisa <b>mengunduh laporan</b>.</li>
+</ol>
+
+<!-- ============ BAB 6 ============ -->
+<h2 id="bab6">6. Komponen Teknis</h2>
+<table>
+  <tr><th>Berkas</th><th>Peran</th></tr>
+  <tr><td><code>Agent.ps1</code></td><td>Agen PowerShell di server target. Membaca resource &amp; menyajikan JSON. Tanpa install, read-only.</td></tr>
+  <tr><td><code>dashboard_server.py</code></td><td>Server pusat (Python): web + API + 5 worker latar + pembuat laporan Excel/PDF + koneksi Oracle.</td></tr>
+  <tr><td><code>index.html</code></td><td>Tampilan dashboard (self-contained: HTML+CSS+JS jadi satu, termasuk logo Badak LNG).</td></tr>
+  <tr><td><code>targets.json</code></td><td>Daftar server yang dipantau (nama, IP, port, label/nama panggilan).</td></tr>
+  <tr><td><code>watchlist.json</code></td><td>Kata kunci aplikasi yang dipantau (mis. AnyDesk, TeamViewer, torrent).</td></tr>
+  <tr><td><code>critical.json</code></td><td>Daftar service &amp; port kritis per server (mis. Exaquantum, SQL Server, port 1433).</td></tr>
+  <tr><td><code>thresholds.json</code></td><td>Ambang batas laporan (bisa diatur lewat UI).</td></tr>
+  <tr><td>Oracle: <code>server_monitoring</code></td><td>Riwayat metrik tiap 10 detik.</td></tr>
+  <tr><td>Oracle: <code>deteksi_aplikasi</code></td><td>Catatan aplikasi berisiko yang terdeteksi.</td></tr>
+  <tr><td>Oracle: <code>status_layanan</code></td><td>Catatan/alarm saat layanan kritis hidup↔mati.</td></tr>
+</table>
+
+<!-- ============ BAB 7 ============ -->
+<h2 id="bab7">7. Daftar Fitur</h2>
+<div class="feat">
+  <div class="fcard"><div class="fh">📊 Monitoring resource</div><p>CPU, RAM, Disk, Jaringan tiap server; status ONLINE/OFFLINE + latensi.</p></div>
+  <div class="fcard"><div class="fh">🏷️ Nama panggilan (label)</div><p>Beri nama mudah tiap server (mis. "Laptop Pak Erwan") tanpa mengubah hostname.</p></div>
+  <div class="fcard"><div class="fh">🛡️ Deteksi aplikasi</div><p>Menandai server yang memasang aplikasi berisiko (remote access, torrent, dll).</p></div>
+  <div class="fcard"><div class="fh">⚙️ Layanan &amp; port kritis</div><p>Memastikan Exaquantum/SQL/historian &amp; port pentingnya tetap hidup; alarm bila mati.</p></div>
+  <div class="fcard"><div class="fh">🔎 Top proses (RAM/CPU)</div><p>Melihat aplikasi paling berat di server — seperti Task Manager jarak jauh.</p></div>
+  <div class="fcard"><div class="fh">📈 Riwayat, tren &amp; % uptime</div><p>Grafik CPU/RAM/Disk per rentang waktu, persentase uptime, dan daftar downtime.</p></div>
+  <div class="fcard"><div class="fh">💽 Prediksi disk penuh</div><p>Memperkirakan kapan disk akan penuh berdasarkan tren pemakaian.</p></div>
+  <div class="fcard"><div class="fh">📑 Laporan Excel &amp; PDF</div><p>Laporan keseluruhan atau per-server (ringkasan, riwayat, deteksi, uptime).</p></div>
+  <div class="fcard"><div class="fh">⚙️ Ambang batas &amp; retensi</div><p>Batas aman bisa diatur di UI; data lama otomatis dibersihkan agar DB tak membengkak.</p></div>
+  <div class="fcard"><div class="fh">🎨 UI modern</div><p>Glassmorphism, mode gelap, animasi halus, splash pembuka berlogo Badak LNG.</p></div>
+</div>
+
+<!-- ============ BAB 8 ============ -->
+<h2 id="bab8">8. Teknologi yang Digunakan</h2>
+<table>
+  <tr><th>Teknologi</th><th>Dipakai untuk</th></tr>
+  <tr><td><b>PowerShell</b></td><td>Agen di server target (bawaan Windows, tanpa install tambahan).</td></tr>
+  <tr><td><b>Python 3</b> (+ psutil, oracledb, openpyxl)</td><td>Server dashboard, API, worker latar, dan pembuat laporan Excel.</td></tr>
+  <tr><td><b>Oracle Database XE</b></td><td>Menyimpan riwayat metrik &amp; audit (stack sesuai arahan pembimbing).</td></tr>
+  <tr><td><b>HTML + CSS + JavaScript</b></td><td>Tampilan dashboard di browser (tanpa framework berat, satu berkas).</td></tr>
+</table>
+
+<!-- ============ BAB 9 ============ -->
+<h2 id="bab9">9. Cara Menjalankan &amp; Deploy</h2>
+<h3>Di laptop pusat (dashboard)</h3>
+<p>Jalankan server dashboard, lalu buka browser:</p>
+<p><code>python dashboard_server.py</code> &rarr; buka <code>http://localhost:9090</code></p>
+<h3>Di server/laptop yang mau dipantau (agen)</h3>
+<p>Cukup <b>satu perintah</b> di PowerShell server itu (alamat dashboard otomatis terisi):</p>
+<p><code>irm http://&lt;IP-dashboard&gt;:9090/setup | iex</code> &nbsp;(jalankan agen)</p>
+<p><code>irm http://&lt;IP-dashboard&gt;:9090/setup-service | iex</code> &nbsp;(pasang sebagai <i>service</i> auto-start, untuk server 24 jam)</p>
+<div class="note warn"><b>Catatan:</b> membuka firewall port 9091 butuh hak Administrator (perintah di atas otomatis meminta izin). Firewall cukup dibuka sekali per server.</div>
+
+<!-- ============ BAB 10 ============ -->
+<h2 id="bab10">10. Manfaat untuk Pabrik</h2>
+<ul>
+  <li><b>Deteksi dini</b> — tahu server bermasalah sebelum berdampak ke proses produksi.</li>
+  <li><b>Bukti keandalan</b> — angka % uptime &amp; catatan downtime untuk laporan resmi.</li>
+  <li><b>Keamanan</b> — mengetahui aplikasi berisiko yang terpasang di server.</li>
+  <li><b>Aman &amp; ringan</b> — read-only, tanpa install, tidak mengganggu server (Non-Interference).</li>
+  <li><b>Hemat &amp; fleksibel</b> — berbasis alat yang sudah ada (PowerShell, Python, Oracle), mudah dikembangkan.</li>
+</ul>
+
+<!-- ============ BAB 11 ============ -->
+<h2 id="bab11">11. Glosarium Istilah</h2>
+<table>
+  <tr><th>Istilah</th><th>Arti (bahasa awam)</th></tr>
+  <tr><td>Non-Interference</td><td>Prinsip "tidak mengganggu" — hanya membaca, tidak mengubah server yang dipantau.</td></tr>
+  <tr><td>Agen (Agent)</td><td>Program kecil di server target yang melapor kondisi resource.</td></tr>
+  <tr><td>Dashboard</td><td>Halaman web pusat yang menampilkan semua server dalam satu layar.</td></tr>
+  <tr><td>Metrik</td><td>Angka ukuran kondisi: CPU %, RAM %, Disk %, kecepatan jaringan.</td></tr>
+  <tr><td>Latensi</td><td>Waktu tunda saat menghubungi server (ms) — makin kecil makin cepat.</td></tr>
+  <tr><td>ONLINE / OFFLINE</td><td>Server bisa dihubungi / tidak bisa dihubungi.</td></tr>
+  <tr><td>Uptime</td><td>Persentase waktu server hidup &amp; terpantau normal.</td></tr>
+  <tr><td>Downtime</td><td>Periode saat server mati / tak terjangkau.</td></tr>
+  <tr><td>Service (layanan)</td><td>Program latar Windows (mis. SQL Server, Exaquantum) yang harus tetap jalan.</td></tr>
+  <tr><td>Port</td><td>"Pintu" jaringan sebuah layanan (mis. SQL di port 1433).</td></tr>
+  <tr><td>Oracle</td><td>Database tempat menyimpan riwayat metrik &amp; catatan.</td></tr>
+  <tr><td>Worker</td><td>Proses latar yang berjalan berkala (mis. menyimpan ke Oracle tiap 10 detik).</td></tr>
+  <tr><td>Cache</td><td>Simpanan sementara agar tak menghitung ulang terus — bikin ringan.</td></tr>
+  <tr><td>Firewall</td><td>Penjaga jaringan Windows; port 9091 perlu diizinkan agar agen bisa dibaca.</td></tr>
+</table>
+
+<div class="foot">
+  Modul Penjelasan Sistem Monitoring Server &mdash; PT Badak NGL, IT Section.<br>
+  Disusun untuk keperluan Praktik Kerja Lapangan. Untuk menyimpan sebagai PDF: tekan tombol di atas atau Ctrl+P &rarr; "Simpan sebagai PDF".
+</div>
+
+</div><!-- /content -->
+</div><!-- /wrap -->
+</body>
+</html>

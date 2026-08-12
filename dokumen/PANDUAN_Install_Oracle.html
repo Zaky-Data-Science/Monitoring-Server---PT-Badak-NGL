@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panduan Install Oracle — untuk Dashboard Monitoring</title>
+<style>
+  :root{--bg:#0f1420;--card:#171e2e;--ink:#e7ecf5;--muted:#9fb0c9;--acc:#e0544e;--acc2:#3d7dd8;--gold:#e0a132;--code:#0b1020;--line:#2a3448;}
+  @media(prefers-color-scheme:light){:root{--bg:#f5f7fb;--card:#fff;--ink:#1a2233;--muted:#5b6882;--code:#0f1526;--line:#e2e7f0;}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;line-height:1.65;font-size:17px}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:29px;line-height:1.2;margin:.2em 0}
+  h2{font-size:22px;margin:1.6em 0 .5em;padding-top:.4em;border-top:2px solid var(--line)}
+  h3{font-size:18px;margin:1.1em 0 .3em;color:var(--acc)}
+  .sub{color:var(--muted);font-size:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+  .step{display:flex;gap:14px;align-items:flex-start}
+  .num{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:var(--acc2);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  code{background:var(--code);color:#8fe3c0;padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:15px}
+  pre{background:var(--code);color:#cfe6ff;padding:14px 16px;border-radius:10px;overflow-x:auto;font-family:Consolas,monospace;font-size:14px;line-height:1.5;border:1px solid var(--line)}
+  pre .cm{color:#6f86a8}
+  .see{border-left:4px solid #17a06a;background:rgba(23,160,106,.1);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+  .warn{border-left:4px solid var(--gold);background:rgba(224,161,50,.1);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+  .dan{border-left:4px solid var(--acc);background:rgba(224,84,78,.1);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(61,125,216,.15)}
+  kbd{background:#2a3448;color:#e7ecf5;border-radius:5px;padding:1px 7px;font-size:13px;border:1px solid #3a4560;font-family:monospace}
+  b{color:var(--ink)}
+  a{color:var(--acc2)}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:20px;background:#1e3a2e;color:#7fe0ac}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>🗄️ Panduan Install Oracle — untuk Dashboard Monitoring</h1>
+<p class="sub">Menyiapkan database Oracle di laptopmu (lokal) supaya data monitoring bisa disimpan ke Oracle — sesuai arahan pembimbing (stack Badak = Oracle). Bahasa awam, dari nol.</p>
+
+<div class="card">
+<h3 style="margin-top:0">🎯 Di akhir panduan ini kamu punya:</h3>
+<ol>
+<li>Oracle Database jalan di laptopmu (lokal).</li>
+<li>Tool untuk mengetik query (SQL Developer) — seperti SSMS-nya Oracle.</li>
+<li>User <b>monitoring</b> + tabel <b>SERVER_MONITORING</b> siap menampung data.</li>
+<li>Python bisa connect & INSERT ke Oracle (uji berhasil).</li>
+</ol>
+<p style="margin-bottom:0">Setelah ini, kita sambungkan dashboard supaya nulis ke Oracle (dikerjakan bareng di langkah akhir).</p>
+</div>
+
+<div class="warn"><b>Prasyarat:</b> drive C: minimal <b>15 GB kosong</b> (punyamu sudah 37 GB ✅). Oracle install ke C:.</div>
+
+<h2>1 · Download Oracle Database 21c XE</h2>
+<p>XE = <i>Express Edition</i>, versi <b>gratis</b> Oracle untuk belajar/dev. Tidak perlu bayar lisensi.</p>
+<div class="card">
+<div class="step"><div class="num">1</div><div>Buka: <a href="https://www.oracle.com/database/technologies/xe-downloads.html">oracle.com/database/technologies/xe-downloads.html</a></div></div>
+<div class="step"><div class="num">2</div><div>Klik <b>"Oracle Database 21c Express Edition for Windows x64"</b> → download file <code>OracleXE213_Win64.zip</code> (±2,2 GB).</div></div>
+</div>
+<div class="see">✔️ Download gratis, tidak perlu login akun Oracle untuk XE.</div>
+
+<h2>2 · Install Oracle</h2>
+<div class="card">
+<div class="step"><div class="num">1</div><div><b>Ekstrak</b> ZIP-nya (klik kanan → Extract All). Muncul folder berisi <code>setup.exe</code>.</div></div>
+<div class="step"><div class="num">2</div><div>Klik kanan <code>setup.exe</code> → <b>Run as administrator</b>.</div></div>
+<div class="step"><div class="num">3</div><div>Ikuti wizard: <b>Next</b> → centang <b>accept license</b> → biarkan lokasi default → <b>Next</b>.</div></div>
+<div class="step"><div class="num">4</div><div><b>PENTING — set password.</b> Kamu diminta 1 password untuk akun admin (SYS, SYSTEM, PDBADMIN). <b>Catat password ini!</b> Contoh: <code>Oracle123</code> (untuk latihan; jangan pakai yang ini di kantor).</div></div>
+<div class="step"><div class="num">5</div><div><b>Install</b> → tunggu selesai (±10–20 menit). <b>Finish</b>.</div></div>
+</div>
+<div class="dan"><b>⛔ Password itu kunci semuanya — jangan lupa/catat baik-baik.</b> Kalau hilang, susah masuk ke database.</div>
+
+<h2>3 · Cek instalasi berhasil</h2>
+<p>Buka <b>Command Prompt / PowerShell</b>, jalankan:</p>
+<pre>sqlplus system/Oracle123@localhost:1521/XEPDB1</pre>
+<div class="see">✔️ Kalau muncul prompt <code>SQL&gt;</code> berarti <b>Oracle jalan & kamu berhasil masuk.</b> Ketik <code>exit</code> untuk keluar.<br>
+(Ganti <code>Oracle123</code> dengan password yang kamu set tadi.)</div>
+<table>
+<tr><th>Istilah</th><th>Arti</th></tr>
+<tr><td><code>localhost:1521</code></td><td>Alamat + port Oracle (1521 = port standar Oracle)</td></tr>
+<tr><td><code>XEPDB1</code></td><td>Nama database (pluggable DB) tempat kita kerja</td></tr>
+<tr><td><code>system</code></td><td>Akun admin bawaan</td></tr>
+</table>
+
+<h2>4 · Install SQL Developer (tool query)</h2>
+<p>Ini "SSMS"-nya Oracle — aplikasi untuk mengetik & menjalankan SQL dengan nyaman.</p>
+<div class="card">
+<div class="step"><div class="num">1</div><div>Buka: <a href="https://www.oracle.com/database/sqldeveloper/technologies/download/">oracle.com/database/sqldeveloper</a></div></div>
+<div class="step"><div class="num">2</div><div>Download versi <b>"Windows 64-bit with JDK included"</b> (sudah termasuk Java, tidak perlu install Java terpisah).</div></div>
+<div class="step"><div class="num">3</div><div><b>Ekstrak</b> ZIP ke folder (mis. <code>D:\sqldeveloper</code>) → buka folder → jalankan <code>sqldeveloper.exe</code>. (Tidak perlu install; langsung jalan.)</div></div>
+</div>
+
+<h2>5 · Connect ke database di SQL Developer</h2>
+<div class="card">
+<div class="step"><div class="num">1</div><div>Di SQL Developer, klik tanda <b>+</b> hijau (New Connection).</div></div>
+<div class="step"><div class="num">2</div><div>Isi:
+<table>
+<tr><td>Name</td><td><code>Lokal XE</code> (bebas)</td></tr>
+<tr><td>Username</td><td><code>system</code></td></tr>
+<tr><td>Password</td><td>password yang kamu set</td></tr>
+<tr><td>Hostname</td><td><code>localhost</code></td></tr>
+<tr><td>Port</td><td><code>1521</code></td></tr>
+<tr><td>Service name</td><td><code>XEPDB1</code></td></tr>
+</table></div></div>
+<div class="step"><div class="num">3</div><div>Klik <b>Test</b> → harus "Success" → <b>Connect</b>.</div></div>
+</div>
+<div class="see">✔️ Kalau tersambung, panel kiri menampilkan koneksi "Lokal XE". Siap ngetik SQL.</div>
+
+<h2>6 · Buat user + tabel monitoring</h2>
+<p>Buka <b>SQL Worksheet</b> (di SQL Developer), tempel &amp; jalankan (tombol ▶ / <kbd>F5</kbd>):</p>
+<h3><span class="tag">SQL</span> Buat user khusus</h3>
+<pre><span class="cm">-- login sebagai system dulu (koneksi Lokal XE)</span>
+CREATE USER monitoring IDENTIFIED BY Monitor123;
+GRANT CONNECT, RESOURCE TO monitoring;
+ALTER USER monitoring QUOTA UNLIMITED ON USERS;</pre>
+<h3><span class="tag">SQL</span> Buat tabel (login sebagai user monitoring, atau tetap system)</h3>
+<pre>CREATE TABLE monitoring.server_monitoring (
+    waktu        TIMESTAMP,
+    nama_server  VARCHAR2(100),
+    ip           VARCHAR2(50),
+    status       VARCHAR2(20),
+    latency_ms   NUMBER,
+    cpu_pct      NUMBER,
+    mem_pct      NUMBER,
+    disk_pct     NUMBER,
+    rx_kbps      NUMBER,
+    tx_kbps      NUMBER
+);</pre>
+<div class="see">✔️ Tabel <code>SERVER_MONITORING</code> siap. Tiap 10 detik nanti = 1 baris masuk ke sini (pengganti CSV).</div>
+
+<h2>7 · Uji Python bisa INSERT ke Oracle</h2>
+<p>Python menyambung ke Oracle pakai library <code>oracledb</code> (mode "thin" — tidak perlu install Oracle Client tambahan).</p>
+<div class="card">
+<div class="step"><div class="num">1</div><div>Install library:
+<pre>pip install oracledb</pre></div></div>
+<div class="step"><div class="num">2</div><div>Simpan file <code>tes_oracle.py</code> lalu jalankan (<code>python tes_oracle.py</code>):
+<pre>import oracledb, datetime
+
+conn = oracledb.connect(user="monitoring", password="Monitor123",
+                        dsn="localhost:1521/XEPDB1")
+cur = conn.cursor()
+cur.execute("""INSERT INTO server_monitoring
+  (waktu, nama_server, ip, status, latency_ms, cpu_pct, mem_pct, disk_pct, rx_kbps, tx_kbps)
+  VALUES (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10)""",
+  (datetime.datetime.now(), "Tes Server", "127.0.0.1", "ONLINE", 5, 42, 80, 60, 100, 50))
+conn.commit()
+print("1 baris masuk ke Oracle!")
+
+cur.execute("SELECT COUNT(*) FROM server_monitoring")
+print("Total baris di tabel:", cur.fetchone()[0])
+conn.close()</pre></div></div>
+</div>
+<div class="see">✔️ Kalau muncul <b>"1 baris masuk ke Oracle!"</b> + jumlah baris → <b>Python berhasil menulis ke Oracle.</b> 🎉 Ini pondasi menggantikan CSV.</div>
+
+<h2>8 · Selanjutnya (dikerjakan bareng)</h2>
+<p>Setelah langkah 1–7 berhasil, kabari aku. Nanti kita:</p>
+<ul>
+<li>Ubah <code>dashboard_server.py</code>: bagian pencatatan → <b>INSERT ke Oracle</b> (bukan CSV), pakai logika yang sama.</li>
+<li>Ubah tombol <b>Unduh CSV</b> → ambil data <b>dari Oracle</b> lalu ekspor (jadi CSV tetap ada, sumbernya Oracle).</li>
+<li>Uji: jalankan dashboard → cek baris bertambah di tabel Oracle.</li>
+</ul>
+
+<h2>🔧 Kalau nyangkut</h2>
+<table>
+<tr><th>Masalah</th><th>Solusi</th></tr>
+<tr><td>Install error "port 1521 in use"</td><td>Ada Oracle/SQL lain jalan. Restart laptop, coba lagi.</td></tr>
+<tr><td><code>sqlplus</code> tidak dikenal</td><td>Buka Command Prompt baru (biar PATH ke-refresh), atau restart laptop.</td></tr>
+<tr><td>SQL Developer minta Java</td><td>Download versi <b>"with JDK included"</b>.</td></tr>
+<tr><td>Python: "DPY-6005 cannot connect"</td><td>Cek Oracle jalan (langkah 3), cek password & service name <code>XEPDB1</code>.</td></tr>
+<tr><td>Lupa password</td><td>Susah — lebih baik install ulang XE. Makanya catat password!</td></tr>
+</table>
+
+<div class="card" style="text-align:center">
+<b>Selesai langkah 1–7? 🎉</b><br>
+<span class="sub">Kabari "Oracle siap" — nanti kita sambungkan ke dashboard bareng-bareng.</span>
+</div>
+
+</div>
+</body>
+</html>
